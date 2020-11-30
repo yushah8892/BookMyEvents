@@ -11,6 +11,8 @@ type Booking {
 
 type User {
     _id : ID!
+    firstName:String!
+    lastName:String!
     email : String!
     password: String
     createdEvents : [Event!]
@@ -27,9 +29,12 @@ type AuthData{
     userId : ID!
     token : String!
     tokenExpiration :Int !
+    user: User!
 }
 
 input UserInput {
+    firstName:String!
+    lastName:String!
     email:String!
     password:String!
 }
@@ -42,13 +47,15 @@ input EventInput {
 type RootQuery {
     events : [Event!]!
     bookings : [Booking!]!
-    login(email : String!,password : String!): AuthData!
+    userBookings : [Booking!]!
 }
 type RootMutations {
     createEvents(eventInput :EventInput):Event 
     createUsers(userInput:UserInput) : User
     bookEvent(eventId : ID) : Booking!
     cancelBooking(bookingId: ID) : Event!
+    login(email : String!,password : String!): AuthData!
+
 }    
 
 schema {
